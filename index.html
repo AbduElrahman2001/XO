@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>xo Game</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: rgb(14, 157, 186);
+      }
+      .game {
+        width: 400px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        margin: auto;
+        color: white;
+      }
+      .game .head {
+        background-color: aqua;
+        padding: 15px 0;
+        margin: 5px 0;
+        font-size: larger;
+      }
+      .game .squar {
+        height: 60px;
+        width: 30%;
+        background-color: aqua;
+        float: left;
+        margin: 1.5% 1.6%;
+        font-size: 30px;
+      }
+      .squar:hover {
+        background-color: black;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game">
+      <div class="head">X O GAME</div>
+
+      <div class="squar" id="squar1" onclick="game(this.id)"></div>
+      <div class="squar" id="squar2" onclick="game(this.id)"></div>
+      <div class="squar" id="squar3" onclick="game(this.id)"></div>
+
+      <div class="squar" id="squar4" onclick="game(this.id)"></div>
+      <div class="squar" id="squar5" onclick="game(this.id)"></div>
+      <div class="squar" id="squar6" onclick="game(this.id)"></div>
+
+      <div class="squar" id="squar7" onclick="game(this.id)"></div>
+      <div class="squar" id="squar8" onclick="game(this.id)"></div>
+      <div class="squar" id="squar9" onclick="game(this.id)"></div>
+    </div>
+    <script>
+      let turn = "x";
+      let head = document.querySelector(".head");
+      let squares = [];
+      function win(num1, num2, num3) {
+        head.innerHTML = `Winner`;
+        document.getElementById("squar" + num1).style.backgroundColor = "black";
+        document.getElementById("squar" + num2).style.backgroundColor = "black";
+        document.getElementById("squar" + num3).style.backgroundColor = "black";
+
+        setInterval(function () {
+          head.innerHTML += ".";
+        }, 1000);
+        setTimeout(function () {
+          location.reload();
+        }, 4000);
+      }
+      function winner() {
+        for (let i = 1; i < 10; i++) {
+          squares[i] = document.getElementById("squar" + i).innerHTML;
+        }
+        if (
+          squares[1] == squares[2] &&
+          squares[2] == squares[3] &&
+          squares[1] != ""
+        ) {
+          win(1, 2, 3);
+        } else if (
+          squares[4] == squares[5] &&
+          squares[5] == squares[6] &&
+          squares[4] != ""
+        ) {
+          win(4, 5, 6);
+        } else if (
+          squares[7] == squares[8] &&
+          squares[8] == squares[9] &&
+          squares[8] != ""
+        ) {
+          win(7, 8, 9);
+        } else if (
+          squares[1] == squares[4] &&
+          squares[4] == squares[7] &&
+          squares[4] != ""
+        ) {
+          win(1, 4, 7);
+        } else if (
+          squares[2] == squares[5] &&
+          squares[5] == squares[8] &&
+          squares[8] != ""
+        ) {
+          win(2, 5, 8);
+        } else if (
+          squares[3] == squares[6] &&
+          squares[6] == squares[9] &&
+          squares[9] != ""
+        ) {
+          win(3, 6, 9);
+        } else if (
+          squares[1] == squares[5] &&
+          squares[5] == squares[9] &&
+          squares[1] != ""
+        ) {
+          win(1, 5, 9);
+        } else if (
+          squares[3] == squares[5] &&
+          squares[5] == squares[7] &&
+          squares[7] != ""
+        ) {
+          win(3, 5, 7);
+        }
+      }
+      function game(id) {
+        let squ = document.getElementById(id);
+        if (turn === "x" && squ.innerHTML == "") {
+          squ.innerHTML = "x";
+          turn = "o";
+          head.innerHTML = "o";
+          head.style.fontSize = "40px";
+        } else if (turn === "o" && squ.innerHTML == "") {
+          squ.innerHTML = "o";
+          turn = "x";
+          head.innerHTML = "x";
+          head.style.fontSize = "40px";
+        }
+        winner();
+      }
+    </script>
+  </body>
+</html>
